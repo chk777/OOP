@@ -57,11 +57,11 @@ public:
 	virtual ~Hand();
 
 	
-	void Add(Card* pCard); //Добавляет карту в руку. Ставит указатель на объект типа Сard
+	void Add(Card* pCard); //Р”РѕР±Р°РІР»СЏРµС‚ РєР°СЂС‚Сѓ РІ СЂСѓРєСѓ. РЎС‚Р°РІРёС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚ С‚РёРїР° РЎard
 	
-	void Clear(); //Очищает руку от карт. Удаляя все указатели.
+	void Clear(); //РћС‡РёС‰Р°РµС‚ СЂСѓРєСѓ РѕС‚ РєР°СЂС‚. РЈРґР°Р»СЏСЏ РІСЃРµ СѓРєР°Р·Р°С‚РµР»Рё.
 	
-	uint16_t GetTotal() const; //Сумма карт у игрока. При сумме туз считается или 1 или 11 в зависимости о  расклада
+	uint16_t GetTotal() const; //РЎСѓРјРјР° РєР°СЂС‚ Сѓ РёРіСЂРѕРєР°. РџСЂРё СЃСѓРјРјРµ С‚СѓР· СЃС‡РёС‚Р°РµС‚СЃСЏ РёР»Рё 1 РёР»Рё 11 РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё Рѕ  СЂР°СЃРєР»Р°РґР°
 
 protected:
 	std::vector<Card*> cards;
@@ -73,17 +73,17 @@ public:
 	Deck();
 	virtual ~Deck() = default;
 
-	void Populate(); 	//Создает колоду из 52 карт
+	void Populate(); 	//РЎРѕР·РґР°РµС‚ РєРѕР»РѕРґСѓ РёР· 52 РєР°СЂС‚
 
-	void Shuffle(); 	//Тасует карты
+	void Shuffle(); 	//РўР°СЃСѓРµС‚ РєР°СЂС‚С‹
 
-	void Deal(Hand& aHand); //Раздает в руку одну карту
+	void Deal(Hand& aHand); //Р Р°Р·РґР°РµС‚ РІ СЂСѓРєСѓ РѕРґРЅСѓ РєР°СЂС‚Сѓ
 
-	void AdditionalCards(GenericPlayer& aGenerlcPlayer); //Раздает игроку дополнительные карты до тех пор, пока он может и хочет их получать
+	void AdditionalCards(GenericPlayer& aGenerlcPlayer); //Р Р°Р·РґР°РµС‚ РёРіСЂРѕРєСѓ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РєР°СЂС‚С‹ РґРѕ С‚РµС… РїРѕСЂ, РїРѕРєР° РѕРЅ РјРѕР¶РµС‚ Рё С…РѕС‡РµС‚ РёС… РїРѕР»СѓС‡Р°С‚СЊ
 
 };
 
-//Очки для комбинаций в игре
+//РћС‡РєРё РґР»СЏ РєРѕРјР±РёРЅР°С†РёР№ РІ РёРіСЂРµ
 enum class Chip
 {
 	White = 1,
@@ -105,18 +105,18 @@ private:
 	Chip chips[(int)Chip::count]{};
 };
 
-//Игроки
+//РРіСЂРѕРєРё
 class GenericPlayer : public Hand
 {
 public:
 	GenericPlayer(const std::string& name = "");
 	virtual ~GenericPlayer() = default;
 
-	virtual bool IsHitting() const = 0; 	// хочет ли игрок продолжать брать карты
+	virtual bool IsHitting() const = 0; 	// С…РѕС‡РµС‚ Р»Рё РёРіСЂРѕРє РїСЂРѕРґРѕР»Р¶Р°С‚СЊ Р±СЂР°С‚СЊ РєР°СЂС‚С‹
 
-	bool IsBoosted() const; 	// показывает если перебор
+	bool IsBoosted() const; 	//РїРѕРєР°Р·С‹РІР°РµС‚ РµСЃР»Рё РїРµСЂРµР±РѕСЂ
 
-	void Bust() const; 	// объявляет, что перебор
+	void Bust() const; 	//РѕР±СЉСЏРІР»СЏРµС‚, С‡С‚Рѕ РїРµСЂРµР±РѕСЂ
 
 	friend std::ostream& operator<<(std::ostream& os, const GenericPlayer& aGenericPlayer);
 
@@ -133,11 +133,11 @@ public:
 	Player(const std::string& name = "");
 	virtual ~Player() = default;
 
-	//спрашивает у пользователя, нужна ли ему еще одна карта
+	//СЃРїСЂР°С€РёРІР°РµС‚ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РЅСѓР¶РЅР° Р»Рё РµРјСѓ РµС‰Рµ РѕРґРЅР° РєР°СЂС‚Р°
 	virtual bool IsHitting() const override;
-	void Win() const; //Выиграл
-	void Lose() const; //Проиграл
-	void Push() const; 	//Ничья
+	void Win() const; //Р’С‹РёРіСЂР°Р»
+	void Lose() const; //РџСЂРѕРёРіСЂР°Р»
+	void Push() const; //РќРёС‡СЊСЏ
 private:
 
 };
@@ -148,7 +148,7 @@ public:
 	House(const std::string& name = "House");
 	virtual ~House() = default;
 
-	//проверяет, нужна ли диллеру еще одна карта
+	//РїСЂРѕРІРµСЂСЏРµС‚, РЅСѓР¶РЅР° Р»Рё РґРёР»Р»РµСЂСѓ РµС‰Рµ РѕРґРЅР° РєР°СЂС‚Р°
 	virtual bool IsHitting() const override; 
 	void FlipFirstCard();
 private:
@@ -156,7 +156,7 @@ private:
 
 };
 
-// игра
+//РёРіСЂР°
 class Game
 {
 public:
