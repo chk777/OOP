@@ -77,7 +77,7 @@ void Part3()
 		names.push_back(name);
 	}
 	cout << endl;
-	// процес игры
+	// процесс игры
 	Game aGame(names);
 	char again = 'y';
 	while (again != 'n' && again != 'N')
