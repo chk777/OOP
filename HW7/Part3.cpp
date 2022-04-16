@@ -20,7 +20,7 @@ Suit end(Suit suit)
 };
 
 
-Card::Card(Rank r, Suit s, bool ifu) : suit(s), rank(r), isFaceUp(ifu)//, isStayedInTheDeck{ true }
+Card::Card(Rank r, Suit s, bool ifu) : suit(s), rank(r), isFaceUp(ifu)
 {};
 
 void Card::SetValue(Rank den, Suit suit)
@@ -105,7 +105,7 @@ Game::Game(const std::vector<std::string>& names)
 
 void Game::Play()
 {
-	// стартовая раздача карт, по 2 карты
+	// СЃС‚Р°СЂС‚РѕРІР°СЏ СЂР°Р·РґР°С‡Р° РєР°СЂС‚, РїРѕ 2 РєР°СЂС‚С‹
 	for (size_t i = 0; i < 2; i++)
 	{
 		for (auto& player : players)
@@ -115,32 +115,32 @@ void Game::Play()
 		deck.Deal(house);
 	}
 
-	// прячет первую карту роздающего
+	// РїСЂСЏС‡РµС‚ РїРµСЂРІСѓСЋ РєР°СЂС‚Сѓ СЂРѕР·РґР°СЋС‰РµРіРѕ
 	house.FlipFirstCard();
 
-	// переворачивает все краты игроков
+	// РїРµСЂРµРІРѕСЂР°С‡РёРІР°РµС‚ РІСЃРµ РєСЂР°С‚С‹ РёРіСЂРѕРєРѕРІ
 	for (auto& player : players)
 	{
 		std::cout << player << std::endl;
 	}
 	std::cout << house << std::endl;
 
-	// раздает игрокам дополнительные карты
+	// СЂР°Р·РґР°РµС‚ РёРіСЂРѕРєР°Рј РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РєР°СЂС‚С‹
 	for (auto& player : players)
 	{
 		deck.AdditionalCards(player);
 	}
 
-	// показывает первую карту роздающего
+	// РїРѕРєР°Р·С‹РІР°РµС‚ РїРµСЂРІСѓСЋ РєР°СЂС‚Сѓ СЂРѕР·РґР°СЋС‰РµРіРѕ
 	house.FlipFirstCard();
 	std::cout << std::endl << house;
 
-	// раздает роздающему дополнительные карты
+	// СЂР°Р·РґР°РµС‚ СЂРѕР·РґР°СЋС‰РµРјСѓ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РєР°СЂС‚С‹
 	deck.AdditionalCards(house);
 
 	if (house.IsBoosted())
 	{
-		// оставшиеся победитель -ли
+		// РѕСЃС‚Р°РІС€РёРµСЃСЏ РїРѕР±РµРґРёС‚РµР»СЊ -Р»Рё
 		for (auto& player : players)
 		{
 			if (!player.IsBoosted())
@@ -151,7 +151,7 @@ void Game::Play()
 	}
 	else
 	{
-		// сравнивает суммы очков всех игроков с суммой карт роздающего
+		// СЃСЂР°РІРЅРёРІР°РµС‚ СЃСѓРјРјС‹ РѕС‡РєРѕРІ РІСЃРµС… РёРіСЂРѕРєРѕРІ СЃ СЃСѓРјРјРѕР№ РєР°СЂС‚ СЂРѕР·РґР°СЋС‰РµРіРѕ
 		for (auto& player : players)
 		{
 			if (!player.IsBoosted())
@@ -172,7 +172,7 @@ void Game::Play()
 		}
 	}
 
-	// очищает руки всех игроков
+	// РѕС‡РёС‰Р°РµС‚ СЂСѓРєРё РІСЃРµС… РёРіСЂРѕРєРѕРІ
 	for (auto& player : players)
 	{
 		player.Clear();
@@ -206,7 +206,7 @@ void Hand::Clear()
 
 uint16_t Hand::GetTotal() const
 {
-	// если карт в руке нет, возвращает значение 0
+	//РµСЃР»Рё РєР°СЂС‚ РІ СЂСѓРєРµ РЅРµС‚, РІРѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ 0
 	if (cards.empty())
 	{
 		return 0;
@@ -216,22 +216,22 @@ uint16_t Hand::GetTotal() const
 	{
 		return 0;
 	}
-	// получает сумму всех карт, каждый туз дает 1 очко
+	// РїРѕР»СѓС‡Р°РµС‚ СЃСѓРјРјСѓ РІСЃРµС… РєР°СЂС‚, РєР°Р¶РґС‹Р№ С‚СѓР· РґР°РµС‚ 1 РѕС‡РєРѕ
 	uint16_t total = 0;
 	for (const auto& cr : cards)
 	{
 		total += cr->GetValue();
 	}
-	// определяет есть ли в руке туз
+	// РѕРїСЂРµРґРµР»СЏРµС‚ РµСЃС‚СЊ Р»Рё РІ СЂСѓРєРµ С‚СѓР·
 	bool containsAce = false;
 	for (const auto& cr : cards)
 	{
 		if (cr->GetValue() == static_cast<uint16_t>(Rank::ACE)) containsAce = true;
 	}
-	// если в руке есть туз и сумма маленькая, туз дает 11 очков
+	// РµСЃР»Рё РІ СЂСѓРєРµ РµСЃС‚СЊ С‚СѓР· Рё СЃСѓРјРјР° РјР°Р»РµРЅСЊРєР°СЏ, С‚СѓР· РґР°РµС‚ 11 РѕС‡РєРѕРІ
 	if (containsAce && total <= 11)
 	{
-		// добавляем 10 очков за туз, ранее мы уже назначили 1 очко за туз
+		// РґРѕР±Р°РІР»СЏРµРј 10 РѕС‡РєРѕРІ Р·Р° С‚СѓР·, СЂР°РЅРµРµ РјС‹ СѓР¶Рµ РЅР°Р·РЅР°С‡РёР»Рё 1 РѕС‡РєРѕ Р·Р° С‚СѓР·
 		total += 10;
 	}
 	return total;
